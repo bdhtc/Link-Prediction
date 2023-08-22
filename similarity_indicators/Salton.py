@@ -9,7 +9,7 @@ import time
 
 
 def Salton(MatrixAdjacency_Train):
-    similarity_StartTime = time.clock()
+    similarity_StartTime = time.perf_counter()
     
     similarity = np.dot(MatrixAdjacency_Train,MatrixAdjacency_Train)
     
@@ -22,10 +22,10 @@ def Salton(MatrixAdjacency_Train):
     np.seterr(divide='ignore', invalid='ignore')
     Matrix_similarity = np.nan_to_num(similarity / temp)
     
-#     print np.isnan(Matrix_similarity)
+#     print(np.isnan(Matrix_similarity))
 #     Matrix_similarity = np.nan_to_num(Matrix_similarity)
-#     print np.isnan(Matrix_similarity)
-    similarity_EndTime = time.clock()
-    print "    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime)
+#     print(np.isnan(Matrix_similarity))
+    similarity_EndTime = time.perf_counter()
+    print("    SimilarityTime: %f s" % (similarity_EndTime - similarity_StartTime))
     return Matrix_similarity
 

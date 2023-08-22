@@ -8,7 +8,7 @@ import numpy as np
 import time
 
 def Sorenson(MatrixAdjacency_Train):
-    similarity_StartTime = time.clock()
+    similarity_StartTime = time.perf_counter()
     
     Matrix_similarity = np.dot(MatrixAdjacency_Train,MatrixAdjacency_Train)
 
@@ -19,8 +19,8 @@ def Sorenson(MatrixAdjacency_Train):
     
     Matrix_similarity = (2 * Matrix_similarity) / tempdeg
     
-    similarity_EndTime = time.clock()
-    print "    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime)
+    similarity_EndTime = time.perf_counter()
+    print("    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime))
     return Matrix_similarity
 # import numpy.matlib as matlab
 # def Sorenson(MatrixAdjacency_Train):
@@ -29,7 +29,7 @@ def Sorenson(MatrixAdjacency_Train):
 #     Matrix_similarity = np.triu(Matrix_similarity, 1)
 #     
 #     deg_col = matlab.repmat((matlab.sum(MatrixAdjacency_Train,1)), 1, matlab.size(MatrixAdjacency_Train, 1))
-#     print deg_col.shape
+#     print(deg_col.shape)
 #     deg_col_T = deg_col.T
 #     deg_col = deg_col_T + deg_col
 #     deg_col = np.triu(deg_col)

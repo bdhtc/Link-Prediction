@@ -27,7 +27,7 @@ import similarity_indicators.Katz
 import similarity_indicators.ACT
 import similarity_indicators.Cos
 
-startTime = time.clock()
+startTime = time.perf_counter()
 #初始化训练测试集合
 READEME1 = '''Please choose a Set:
     PPI            1
@@ -36,8 +36,8 @@ READEME1 = '''Please choose a Set:
     PB             4
     INT            5
     USAir          6'''
-print READEME1
-Set = int(raw_input('Input Set:'))
+print(READEME1)
+Set = int(input('Input Set:'))
 if Set == 1:
     NetFile = u'Data/PPI.txt'
     NetName = 'PPI'
@@ -57,9 +57,9 @@ elif Set == 6:
     NetFile = u'Data/USAir.txt'
     NetName = 'USAir'
 else:
-    print 'Input Error'
-     
-print "\nLink Prediction start：\n"
+    print('Input Error')
+
+print("\nLink Prediction start：\n")
 TrainFile_Path = 'Data\\'+NetName+'\\Train.txt'
 if os.path.exists(TrainFile_Path):
     Train_File = 'Data\\'+NetName+'\\Train.txt'
@@ -85,81 +85,81 @@ else:
 #     Katz          11
 #     ACT           12
 #     RWR           13'''
-# print READEME
+# print(READEME)
 # Method = int(raw_input('Input Method:'))
-similarity_StartTime = time.clock()
+similarity_StartTime = time.perf_counter()
 
 # Matrix_similarity = similarity_indicators.Cos.ACT(MatrixAdjacency_Train)
 
 for Method in range(14):
     if Method == 0:
-        print '----------SIM----------基于局部信息----------SIM----------'
-        print '----------Cn----------'
+        print('----------SIM----------基于局部信息----------SIM----------')
+        print('----------Cn----------')
         Matrix_similarity = similarity_indicators.CommonNeighbor.Cn(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 1:
-        print '----------Salton----------'
+        print('----------Salton----------')
         Matrix_similarity = similarity_indicators.Salton.Salton(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 2:
-        print '----------Jaccard----------'
+        print('----------Jaccard----------')
         Matrix_similarity = similarity_indicators.Jaccard.Jaccavrd(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 3:
-        print '----------Sorenson----------'
+        print('----------Sorenson----------')
         Matrix_similarity = similarity_indicators.Sorenson.Sorenson(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 4:
-        print '----------HPI----------'
+        print('----------HPI----------')
         Matrix_similarity = similarity_indicators.HPI.HPI(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 5:
-        print '----------HDI----------'
+        print('----------HDI----------')
         Matrix_similarity = similarity_indicators.HDI.HDI(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 6:
-        print '----------LHN-1----------'
+        print('----------LHN-1----------')
         Matrix_similarity = similarity_indicators.LHN_I.LHN_I(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 7:
-        print '----------PA----------'
+        print('----------PA----------')
         Matrix_similarity = similarity_indicators.PA.PA(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 8:
-        print '----------AA----------'
+        print('----------AA----------')
         Matrix_similarity = similarity_indicators.AA.AA(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 9:
-        print '----------RA----------'
+        print('----------RA----------')
         Matrix_similarity = similarity_indicators.RA.RA(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 10:
-        print '----------SIM----------基于路径----------SIM----------'
-        print '----------LP----------'
+        print('----------SIM----------基于路径----------SIM----------')
+        print('----------LP----------')
         Matrix_similarity = similarity_indicators.LP.LP(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 11:
-        print '----------Katz----------'
+        print('----------Katz----------')
         Matrix_similarity = similarity_indicators.Katz.Katz(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 12:
-        print '----------SIM----------基于随机游走----------SIM----------'
-        print '----------ACT----------'
+        print('----------SIM----------基于随机游走----------SIM----------')
+        print('----------ACT----------')
         Matrix_similarity = similarity_indicators.ACT.ACT(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     elif Method == 13:
-        print '----------Cos----------'
+        print('----------Cos----------')
         Matrix_similarity = similarity_indicators.Cos.Cos(MatrixAdjacency_Train)
         Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
     else:
-        print "Method Error!"
-        
-similarity_EndTime = time.clock()
-print '----------！！----------'
-print "All SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime)
+        print("Method Error!")
+
+similarity_EndTime = time.perf_counter()
+print('----------！！----------')
+print("All SimilarityTime: %f s" % (similarity_EndTime - similarity_StartTime))
 
 # #计算auc
 Evaluation_Indicators.AUC.Calculation_AUC(MatrixAdjacency_Train, MatrixAdjacency_Test, Matrix_similarity, MaxNodeNum)
 
-endTime = time.clock()
-print "\nRunTime: %f s" % (endTime - startTime)
+endTime = time.perf_counter()
+print("\nRunTime: %f s" % (endTime - startTime))

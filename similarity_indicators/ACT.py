@@ -8,7 +8,7 @@ import numpy as np
 import time
 
 def ACT(MatrixAdjacency_Train):
-    similarity_StartTime = time.clock()
+    similarity_StartTime = time.perf_counter()
     
     Matrix_D = np.diag(sum(MatrixAdjacency_Train))
     Matrix_Laplacian = Matrix_D - MatrixAdjacency_Train
@@ -19,10 +19,10 @@ def ACT(MatrixAdjacency_Train):
     Matrix_Diag = Array_Diag * Matrix_ONE
 
     Matrix_similarity = Matrix_Diag + Matrix_Diag.T - (2 * Matrix_Laplacian)
-    print Matrix_similarity
+    print(Matrix_similarity)
     Matrix_similarity = Matrix_ONE / Matrix_similarity
     Matrix_similarity = np.nan_to_num(Matrix_similarity)
     
-    similarity_EndTime = time.clock()
-    print "    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime)
+    similarity_EndTime = time.perf_counter()
+    print("    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime))
     return Matrix_similarity

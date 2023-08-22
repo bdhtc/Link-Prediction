@@ -8,7 +8,7 @@ import numpy as np
 import time
 
 def Jaccavrd(MatrixAdjacency_Train):
-    similarity_StartTime = time.clock()
+    similarity_StartTime = time.perf_counter()
     
     Matrix_similarity = np.dot(MatrixAdjacency_Train,MatrixAdjacency_Train)
     
@@ -20,8 +20,8 @@ def Jaccavrd(MatrixAdjacency_Train):
     
     Matrix_similarity = Matrix_similarity / temp
     
-    similarity_EndTime = time.clock()
-    print "    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime)
+    similarity_EndTime = time.perf_counter()
+    print("    SimilarityTime: %f s" % (similarity_EndTime - similarity_StartTime))
     return Matrix_similarity
 
 # import numpy.matlib as matlab
@@ -41,7 +41,7 @@ def Jaccavrd(MatrixAdjacency_Train):
 #     
 #     Matrix_similarity = Matrix_similarity / temp
 #     np.seterr(divide='ignore', invalid='ignore')
-#     print np.isnan(Matrix_similarity)
+#     print(np.isnan(Matrix_similarity))
 #     Matrix_similarity = np.nan_to_num(Matrix_similarity)
-#     print np.isnan(Matrix_similarity)
+#     print(np.isnan(Matrix_similarity))
 #     return Matrix_similarity

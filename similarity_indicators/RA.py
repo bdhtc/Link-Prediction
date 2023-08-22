@@ -8,7 +8,7 @@ import numpy as np
 import time
 
 def RA(MatrixAdjacency_Train):
-    similarity_StartTime = time.clock()
+    similarity_StartTime = time.perf_counter()
     
     RA_Train = sum(MatrixAdjacency_Train)
     RA_Train.shape = (RA_Train.shape[0],1)
@@ -17,6 +17,6 @@ def RA(MatrixAdjacency_Train):
 
     Matrix_similarity = np.dot(MatrixAdjacency_Train,MatrixAdjacency_Train_Log)
 
-    similarity_EndTime = time.clock()
-    print "    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime)
+    similarity_EndTime = time.perf_counter()
+    print("    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime))
     return Matrix_similarity

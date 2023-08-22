@@ -17,11 +17,11 @@ def Data_Shape(Data):
     List_B = list(set(List_B))
     length_A = len(List_A)
     length_B = len(List_B)
-    print '    数据集长度：'+str(Data.shape[0])
-    print '    第一列节点长度：('+str(length_A)+')'
-    print '    第二列节点长度：('+str(length_B)+')'
+    print('    数据集长度：' + str(Data.shape[0]))
+    print('    第一列节点长度：(' + str(length_A) + ')')
+    print('    第二列节点长度：(' + str(length_B) + ')')
     MaxNodeNum =  int(max(max(List_A),max(List_B)))+1
-    print '    节点数量为：'+str(MaxNodeNum)
+    print('    节点数量为：' + str(MaxNodeNum))
     return MaxNodeNum
 def MatrixAdjacency(MaxNodeNum,Data):
     MatrixAdjacency = np.zeros([MaxNodeNum,MaxNodeNum])
@@ -47,15 +47,15 @@ def writeTestFile(Matrix,NetName):
     with open('Data\\'+NetName+'\\Test.txt','w') as file:
         np.savetxt(file,index,fmt='%d')
 def Init(NetFile):
-    print "DataShape......"
+    print("DataShape......")
     NetData = np.loadtxt(NetFile)
     MaxNodeNum = Data_Shape(NetData)
     MatrixAdjacency_Net = MatrixAdjacency(MaxNodeNum, NetData)
     return MatrixAdjacency_Net,MaxNodeNum
     
 def Divide(NetFile,MatrixAdjacency_Net,MaxNodeNum,NetName):
-    print "Divide......"
-    DivideTime_Start = time.clock()
+    print("Divide......")
+    DivideTime_Start = time.perf_counter()
     DivideNum = 0.9
     NetData = np.loadtxt(NetFile)
     lengthData = len(NetData)
@@ -79,16 +79,16 @@ def Divide(NetFile,MatrixAdjacency_Net,MaxNodeNum,NetName):
         else:
             count = 1
 #             for x in range(MatrixAdjacency_Net.shape[0]):
-#                 print len((spones(Uid1_TO_Uid2) - tempVector).nonzero()[0])
+#                 print(len((spones(Uid1_TO_Uid2) - tempVector).nonzero()[0]))
             while (len((spones(Uid1_TO_Uid2) - tempVector).nonzero()[0]) != 0):
 #             while((spones(Uid1_TO_Uid2) - tempVector).nonzero() != 0):
-#                 print "n步可达"
-#                 print [Uid1,Uid2]
-#                 print Uid1_TO_Uid2[Uid2]
-#                 print tempVector.nonzero()
-#                 print spones(Uid1_TO_Uid2).nonzero()
-#                 print np.nonzero(spones(Uid1_TO_Uid2) - tempVector)
-#                 print (spones(Uid1_TO_Uid2) - tempVector).nonzero()
+#                 print("n步可达")
+#                 print([Uid1,Uid2])
+#                 print(Uid1_TO_Uid2[Uid2])
+#                 print(tempVector.nonzero())
+#                 print(spones(Uid1_TO_Uid2).nonzero())
+#                 print(np.nonzero(spones(Uid1_TO_Uid2) - tempVector))
+#                 print((spones(Uid1_TO_Uid2) - tempVector).nonzero())
                 tempVector  = spones(Uid1_TO_Uid2)
                 Uid1_TO_Uid2 = np.dot(tempVector,MatrixAdjacency_Net) + tempVector
                 count += 1
@@ -96,7 +96,7 @@ def Divide(NetFile,MatrixAdjacency_Net,MaxNodeNum,NetName):
                     sign = 1
                     break
                 if count >= MatrixAdjacency_Net.shape[0]:
-                    print '不可达：'+str([Uid1,Uid2])
+                    print('不可达：' + str([Uid1, Uid2]))
                     sign = 0
         if sign == 1:
             NetData = np.delete(NetData,index_Link,axis=0)
@@ -108,23 +108,22 @@ def Divide(NetFile,MatrixAdjacency_Net,MaxNodeNum,NetName):
             
     MatrixAdjacency_Train = MatrixAdjacency_Net
     MatrixAdjacency_Test = MatrixAdjacency_Test + MatrixAdjacency_Test.T
-    
-    print '    训练集邻接矩阵：'+str(MatrixAdjacency_Train.shape)
-    print '    训练集计划边数：'+str(lengthData - NumTest)
-    print '    训练集实际边数：'+str((np.nonzero(MatrixAdjacency_Train)[0].shape[0])/2)
-    print '    测试集邻接矩阵：'+str(MatrixAdjacency_Test.shape)
-    print '    测试集计划边数：'+str(NumTest)
-    print '    测试集实际边数：'+str((np.nonzero(MatrixAdjacency_Test)[0].shape[0])/2)
-    
-    
+
+    print('    训练集邻接矩阵：' + str(MatrixAdjacency_Train.shape))
+    print('    训练集计划边数：' + str(lengthData - NumTest))
+    print('    训练集实际边数：' + str((np.nonzero(MatrixAdjacency_Train)[0].shape[0]) / 2))
+    print('    测试集邻接矩阵：' + str(MatrixAdjacency_Test.shape))
+    print('    测试集计划边数：' + str(NumTest))
+    print('    测试集实际边数：' + str((np.nonzero(MatrixAdjacency_Test)[0].shape[0]) / 2))
+
     writeTrainFile(MatrixAdjacency_Train, NetName)
     writeTestFile(MatrixAdjacency_Test, NetName)
-    DivideTime_End = time.clock()
-    print 'DivideTime：%f s'%(DivideTime_End - DivideTime_Start)
+    DivideTime_End = time.perf_counter()
+    print('DivideTime：%f s' % (DivideTime_End - DivideTime_Start))
     return MatrixAdjacency_Train,MatrixAdjacency_Test
     
 def Init2(Test_File,Train_File):
-    print "DataShape......"
+    print("DataShape......")
     TrainData = np.loadtxt(Train_File)
     MaxNodeNumTrain = Data_Shape(TrainData)
     TestData = np.loadtxt(Test_File)

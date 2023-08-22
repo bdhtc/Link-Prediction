@@ -8,7 +8,7 @@ import numpy as np
 import time
 
 def RWR(MatrixAdjacency_Train):
-    similarity_StartTime = time.clock()
+    similarity_StartTime = time.perf_counter()
     
     Parameter = 0.85
     
@@ -21,6 +21,6 @@ def RWR(MatrixAdjacency_Train):
     Matrix_similarity = Matrix_RWR + Matrix_RWR.T
     
     
-    similarity_EndTime = time.clock()
-    print "    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime)
+    similarity_EndTime = time.perf_counter()
+    print("    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime))
     return Matrix_similarity

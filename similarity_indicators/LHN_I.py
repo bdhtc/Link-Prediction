@@ -8,7 +8,7 @@ import numpy as np
 import time
 
 def LHN_I(MatrixAdjacency_Train):
-    similarity_StartTime = time.clock()
+    similarity_StartTime = time.perf_counter()
     
     Matrix_similarity = np.dot(MatrixAdjacency_Train,MatrixAdjacency_Train)
     
@@ -19,6 +19,6 @@ def LHN_I(MatrixAdjacency_Train):
     
     Matrix_similarity = Matrix_similarity / tempdeg
     
-    similarity_EndTime = time.clock()
-    print "    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime)
+    similarity_EndTime = time.perf_counter()
+    print("    SimilarityTime: %f s" % (similarity_EndTime- similarity_StartTime))
     return Matrix_similarity

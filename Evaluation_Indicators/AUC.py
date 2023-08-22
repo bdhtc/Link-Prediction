@@ -7,8 +7,8 @@ Created on 2016��11��19��
 import numpy as np
 import time
 def Calculation_AUC(MatrixAdjacency_Train,MatrixAdjacency_Test,Matrix_similarity,MaxNodeNum):
-    AUC_TimeStart = time.clock()
-    print '    Calculation AUC......'
+    AUC_TimeStart = time.perf_counter()
+    print('    Calculation AUC......')
     AUCnum = 672400
     
     Matrix_similarity = np.triu(Matrix_similarity - Matrix_similarity * MatrixAdjacency_Train)
@@ -24,16 +24,16 @@ def Calculation_AUC(MatrixAdjacency_Train,MatrixAdjacency_Test,Matrix_similarity
 
     Test_num = len(np.argwhere(Test == 1))
     NoExist_num = len(np.argwhere(NoExist == 1))
-#     print '    Test_num：%d'%Test_num
-#     print '    NoExist_num：%d'%NoExist_num
+#     print('    Test_num：%d'%Test_num)
+#     print('    NoExist_num：%d'%NoExist_num)
       
     Test_rd = [int(x) for index,x in enumerate((Test_num * np.random.rand(1,AUCnum))[0])]
     NoExist_rd = [int(x) for index,x in enumerate((NoExist_num * np.random.rand(1,AUCnum))[0])]
-#     print '    Test_rd：'+str(Test_rd)
-#     print '    Test_rd长度：'+str(len(Test_rd))
-#     print '    Test_rd最大值：'+str(max(Test_rd))
-#     print '    NoExist_rd：'+str(NoExist_rd)
-#     print '    NoExist_rd长度：'+str(len(NoExist_rd))
+#     print('    Test_rd：'+str(Test_rd))
+#     print('    Test_rd长度：'+str(len(Test_rd)))
+#     print('    Test_rd最大值：'+str(max(Test_rd)))
+#     print('    NoExist_rd：'+str(NoExist_rd))
+#     print('    NoExist_rd长度：'+str(len(NoExist_rd)))
     TestPre= Matrix_similarity * Test
     NoExistPre = Matrix_similarity * NoExist
     
@@ -41,17 +41,17 @@ def Calculation_AUC(MatrixAdjacency_Train,MatrixAdjacency_Test,Matrix_similarity
     Test_Data = np.array([TestPre[x[0],x[1]] for index,x in enumerate(TestIndex)]).T
     NoExistIndex = np.argwhere(NoExist == 1)
     NoExist_Data = np.array([NoExistPre[x[0],x[1]] for index,x in enumerate(NoExistIndex)]).T
-#     print Test_Data
-#     print Test_Data.shape
-#     print NoExist_Data
-#     print NoExist_Data.shape
+#     print(Test_Data)
+#     print(Test_Data.shape)
+#     print(NoExist_Data)
+#     print(NoExist_Data.shape)
     
     Test_rd = np.array([Test_Data[x] for index,x in enumerate(Test_rd)])
     NoExist_rd = np.array([NoExist_Data[x] for index,x in enumerate(NoExist_rd)])
-#     print Test_rd
-#     print Test_rd.shape
-#     print NoExist_rd
-#     print NoExist_rd.shape
+#     print(Test_rd)
+#     print(Test_rd.shape)
+#     print(NoExist_rd)
+#     print(NoExist_rd.shape)
 
 #     aucArray = Test_rd - NoExist_rd
 #     n1 = len(np.argwhere(aucArray > 0))
@@ -65,7 +65,7 @@ def Calculation_AUC(MatrixAdjacency_Train,MatrixAdjacency_Test,Matrix_similarity
         else:
             n1 += 0
     auc = float(n1+n2)/AUCnum
-    print '    AUC指标为：%f'%auc
-    AUC_TimeEnd = time.clock()
-    print '    AUCTime：%f s'%(AUC_TimeEnd - AUC_TimeStart)
+    print('    AUC指标为：%f' % auc)
+    AUC_TimeEnd = time.perf_counter()
+    print('    AUCTime：%f s' % (AUC_TimeEnd - AUC_TimeStart))
     return auc
